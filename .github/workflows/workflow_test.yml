@@ -1,0 +1,16 @@
+name: workflow_test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repo
+        uses: actions/checkout@v3
+      - name: Push to main to trigger the issue
+        run: |
+          git config --global user.name 'GH Actions Bot'
+          git config --global user.email 'gh-actions-bot@users.noreply.github.com'
+          git push origin ${{ github.ref_name }}:refs/heads/release --force
